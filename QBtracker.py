@@ -28,6 +28,23 @@ while(1):
     mask = cv2.erode(mask, None, iterations = 2)
     res = cv2.bitwise_and(frame,frame, mask= mask)
 
+    # create our contours so that we can draw our rectangle that follows QB
+    _,contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    max_area = 0 # hold our maximum contour area
+    best_contour = None # hold the biggest contour in our frame
+
+    # Find the biggest contour which will avoid small discrepancies and will be QB
+    for c in contours:
+        currentArea = cv2.contourArea(c)
+        if currentArea > max_area:
+            best_contour = c
+            max_area = currentArea
+    if best_contour is not None:
+        # Get our coordinates and draw rectangle on frame
+        x,y,w,h = cv2.boundingRect(best_contour)
+        cv2.rectangle(frame, (x,y),(x+w,y+h), (0,0,255), 3)
+
+
     # show the frame
     cv2.imshow('frame',frame)
     cv2.imshow('mask',mask)
