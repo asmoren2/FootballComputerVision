@@ -24,13 +24,14 @@ while(1):
 
     # Create a mask with our hue values to single out color.
     mask = cv2.inRange(hsv, lower_red, upper_red)
-    # Erode our image to reduce noise level and single out our color.
+    # Erode and dialate our image to reduce noise level and single out our color.
     mask = cv2.erode(mask, None, iterations = 2)
     res = cv2.bitwise_and(frame,frame, mask= mask)
 
     # show the frame
     cv2.imshow('frame',frame)
     cv2.imshow('mask',mask)
+    cv2.imshow('res',res)
 
     k = cv2.waitKey(5) & 0xFF
     if k == 27:
