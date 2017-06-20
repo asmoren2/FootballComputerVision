@@ -10,7 +10,18 @@ cap = cv2.VideoCapture('IMG_3738.mov')
 
 # iterate through the video frame by frame.
 while(1):
+    # read our first frame
     frame = cap.read()
+    # reduce frame size so that we can better see the changes
+
+    # First method track using color detection
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+
+    # We want to only track red in this example because qb is wearing all red.
+    # Thus we selected our range for the color red.
+    lower_red = np.array([150,150,50])
+    upper_red = np.array([255,255,180])
+
     # show the frame
     cv2.imshow('frame',frame)
 
