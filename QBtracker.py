@@ -11,7 +11,7 @@ cap = cv2.VideoCapture('IMG_3738.mov')
 # iterate through the video frame by frame.
 while(1):
     # read our first frame
-    frame = cap.read()
+    ret, frame = cap.read()
     # reduce frame size so that we can better see the changes
     frame = imutils.resize(frame, width=600)
     # First method track using color detection
